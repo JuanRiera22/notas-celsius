@@ -13,7 +13,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.celsius.notas.PrimaryController">
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.celsius.notas.PrimaryController">
    <children>
       <MenuBar>
         <menus>
@@ -35,7 +35,7 @@
                <children>
                   <VBox layoutX="37.0" layoutY="73.0" prefHeight="200.0" prefWidth="100.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <children>
-                        <ListView fx:id="listaNotas" prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS" />
+                        <ListView fx:id="listaNotas" onMouseClicked="#seleccionarNota" prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS" />
                         <HBox alignment="CENTER" prefHeight="40.0" prefWidth="184.0">
                            <children>
                               <Button mnemonicParsing="false" onAction="#eliminarNota" text="-" />

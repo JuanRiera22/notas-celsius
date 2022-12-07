@@ -9,6 +9,7 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.control.Alert;
 
 public class PrimaryController {
@@ -23,6 +24,8 @@ public class PrimaryController {
 
   @FXML
   private Button botonGuardar;
+   
+  private Nota notaSeleccionada;
 
   @FXML
   void salir(ActionEvent event) {
@@ -65,16 +68,58 @@ public class PrimaryController {
   @FXML
   void eliminarNota(ActionEvent event) {
 
+    BaseDeDatosSingleton.getInstancia().getBd().eliminar(notaSeleccionada);
+    sincronizar();
+    limpiarSeleccion();
+
   }
 
   @FXML
   void crearNota(ActionEvent event) {
     Nota nota = new Nota("Nota sin título", "");
-    listaNotas.getItems().add(nota);
+    //BaseDeDatosSingleton.getInstancia().getBd().guardar(nota);
+    BaseDeDatosSingleton instancia = BaseDeDatosSingleton.getInstancia();
+    IBaseDeDatos bd = instancia.getBd();
+    bd.guardar(nota);
+
+    sincronizar();
+  }
+
+  @FXML
+  void seleccionarNota(MouseEvent event) {
+    notaSeleccionada = listaNotas.getSelectionModel().getSelectedItem();
+    botonGuardar.setDisable(false);
+    textoTitulo.setText(notaSeleccionada.getTitulo());
+    textoTitulo.setDisable(false);
+    textoContenido.setText(notaSeleccionada.getContenido());
+    textoContenido.setDisable(false);
+
+  }
+
+  private void sincronizar() {
+    listaNotas.getItems().clear();
+    listaNotas.getItems().addAll(
+      BaseDeDatosSingleton.getInstancia().getBd().listar()
+    );
+  }
+
+  private void limpiarSeleccion() {
+    notaSeleccionada = null;
+    botonGuardar.setDisable(true);
+    textoTitulo.setText("");
+    textoTitulo.setDisable(true);
+    textoContenido.setText("");
+    textoContenido.setDisable(true);
   }
 
   @FXML
   void guardarNota(ActionEvent event) {
+    notaSeleccionada.setTitulo(textoTitulo.getText());
+    notaSeleccionada.setContenido(textoContenido.getText());
 
+    BaseDeDatosSingleton.getInstancia().getBd().guardar(notaSeleccionada);
+    sincronizar();
   }
+
+  
 }
