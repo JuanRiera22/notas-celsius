@@ -28,6 +28,11 @@ public class PrimaryController {
   private Nota notaSeleccionada;
 
   @FXML
+  public void initialize() {
+    sincronizar();
+  }
+
+  @FXML
   void salir(ActionEvent event) {
     Alert confirmacion = new Alert(
         AlertType.CONFIRMATION,
@@ -76,7 +81,7 @@ public class PrimaryController {
 
   @FXML
   void crearNota(ActionEvent event) {
-    Nota nota = new Nota("Nota sin título", "");
+    Nota nota = new Nota(null,"Nota sin título", "");
     //BaseDeDatosSingleton.getInstancia().getBd().guardar(nota);
     BaseDeDatosSingleton instancia = BaseDeDatosSingleton.getInstancia();
     IBaseDeDatos bd = instancia.getBd();
